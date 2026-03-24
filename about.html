@@ -114,6 +114,18 @@
     }
 
     /* Bio */
+    .bio a {
+      color: var(--black);
+      font-weight: 700;
+      text-decoration: none;
+      border-bottom: 2px solid var(--blue);
+      transition: background 0.1s;
+    }
+
+    .bio a:hover {
+      background: var(--yellow);
+    }
+
     .bio p {
       font-size: 1.05rem;
       font-weight: 400;
@@ -308,10 +320,10 @@
       <div>
         <div class="bio">
           <p>
-            Hi, I'm HJ Hang — a product manager at NVIDIA working on projects that contribute to Artificial General Intelligence (hopefully).
+            Hi, I'm HJ Hang — a product manager at NVIDIA working on projects that contribute to Artificial General Intelligence (hopefully 😊).
           </p>
           <p>
-            Before NVIDIA, I built products across the cloud-native and AI infrastructure stack: Azure Kubernetes Service, Kubernetes AI Toolchain Operator, Azure Arc, Azure Edge Zone, and Ant Group's Graph Databases, among others.
+            Before NVIDIA, I built products across the cloud-native and AI infrastructure stack: <a href="https://azure.microsoft.com/en-us/products/kubernetes-service" target="_blank">Azure Kubernetes Service</a>, Kubernetes AI Toolchain Operator, <a href="https://azure.microsoft.com/en-us/products/azure-arc" target="_blank">Azure Arc</a>, <a href="https://azure.microsoft.com/en-us/products/azure-edge-zones" target="_blank">Azure Edge Zone</a>, and Ant Group's Graph Databases, among others.
           </p>
           <p>
             Outside of product, I spent several years in venture capital. My portfolio includes PingCAP (TiDB), CaiCloud (acquired by ByteDance), SmartX, Yunshan Networks, Chaitin Tech (acquired by Alibaba, later spun off), Yufu (acquired by Tencent), Nebula Graph, and HashData.
