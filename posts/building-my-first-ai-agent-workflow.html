@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Building My First AI Agent Workflow – HJ Hang Blog</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f0f11;
+      --surface: #1a1a1f;
+      --border: #2a2a32;
+      --accent: #7c6aff;
+      --accent-light: #a594ff;
+      --text: #e8e8f0;
+      --muted: #888899;
+      --tag-bg: #252530;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      position: sticky;
+      top: 0;
+      background: rgba(15, 15, 17, 0.85);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+
+    .header-inner {
+      max-width: 780px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+
+    .logo {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .logo span { color: var(--accent); }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-left: 1.5rem;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--text); }
+
+    article {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      margin-bottom: 2.5rem;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover { color: var(--text); }
+
+    .post-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .tag {
+      background: var(--tag-bg);
+      color: var(--accent-light);
+      padding: 0.15rem 0.55rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    h1 {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 2.5rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .content h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 2.5rem 0 0.75rem;
+      color: var(--text);
+    }
+
+    .content p {
+      color: #c8c8d8;
+      margin-bottom: 1.25rem;
+      font-size: 1rem;
+    }
+
+    .content code {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.88em;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      color: var(--accent-light);
+    }
+
+    .content pre {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+    }
+
+    .content pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: 0.88rem;
+      color: #c8c8d8;
+    }
+
+    .content ul {
+      padding-left: 1.5rem;
+      margin-bottom: 1.25rem;
+      color: #c8c8d8;
+    }
+
+    .content ul li { margin-bottom: 0.4rem; }
+
+    footer {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    footer a { color: var(--accent-light); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="/" class="logo">HJ<span>.</span>Hang</a>
+      <nav>
+        <a href="/">Blog</a>
+        <a href="#">Projects</a>
+        <a href="#">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <article>
+    <a href="/" class="back-link">&#8592; Back to Blog</a>
+
+    <div class="post-meta">
+      <span>Mar 24, 2026</span>
+      <span class="tag">Agents</span>
+    </div>
+
+    <h1>Building My First AI Agent Workflow</h1>
+
+    <div class="content">
+      <p>
+        Over the past few weeks, I've been experimenting with AI agents to automate repetitive GitHub tasks —
+        things like creating repositories, managing pull requests, and updating documentation. What started
+        as a curiosity quickly turned into a genuinely useful workflow.
+      </p>
+
+      <h2>What Is an AI Agent?</h2>
+      <p>
+        An AI agent is a system that can perceive its environment, make decisions, and take actions to
+        achieve a goal. Unlike a simple chatbot, an agent can use tools — like a terminal, a browser,
+        or an API — to actually get things done.
+      </p>
+
+      <h2>The Setup</h2>
+      <p>
+        My workflow uses an AI coding assistant paired with the <code>gh</code> CLI (GitHub's official
+        command-line tool). Together they can:
+      </p>
+      <ul>
+        <li>Create and delete repositories</li>
+        <li>Open, review, and merge pull requests</li>
+        <li>Update repository metadata like descriptions and licenses</li>
+        <li>Push code changes automatically</li>
+      </ul>
+
+      <h2>A Real Example</h2>
+      <p>
+        Here's a taste of what the agent ran to create this very blog:
+      </p>
+      <pre><code>gh repo create hungry1526.github.io --public
+git clone https://github.com/hungry1526/hungry1526.github.io.git
+# ... write index.html ...
+git add . && git commit -m "Initial blog site: HJ Hang Blog"
+git push -u origin main</code></pre>
+
+      <h2>What I Learned</h2>
+      <p>
+        The biggest insight was how much friction disappears when you stop context-switching between
+        a browser, a terminal, and an editor. Describing intent in plain English and watching the agent
+        execute it end-to-end is a genuinely different way of working.
+      </p>
+      <p>
+        There's still plenty the agent gets wrong — and knowing when to intervene is a skill in itself —
+        but for well-defined tasks like repository management, it's already a productivity multiplier.
+      </p>
+
+      <h2>What's Next</h2>
+      <p>
+        I'm planning to extend this workflow to handle issue triage, automated changelog generation,
+        and deployment pipelines. Stay tuned.
+      </p>
+    </div>
+  </article>
+
+  <footer>
+    &copy; 2026 HJ Hang &mdash; <a href="https://github.com/hungry1526" target="_blank">GitHub</a>
+  </footer>
+
+</body>
+</html>
