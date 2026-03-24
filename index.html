@@ -79,14 +79,50 @@
 
     /* Hero */
     .hero {
+      position: relative;
+      width: 100%;
+      min-height: 92vh;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 3rem;
+      align-items: end;
+      border-bottom: var(--border);
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://www.arthistoryproject.com/site/assets/files/9237/claude-monet-impression-sunrise-1872-obelisk-art-history.jpg');
+      background-size: cover;
+      background-position: center;
+      z-index: 0;
+    }
+
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(0,0,0,0.82) 0%,
+        rgba(0,0,0,0.45) 50%,
+        rgba(0,0,0,0.15) 100%
+      );
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
       max-width: 1100px;
+      width: 100%;
       margin: 0 auto;
       padding: 5rem 2rem 4rem;
       display: grid;
       grid-template-columns: 1fr auto;
       gap: 3rem;
       align-items: end;
-      border-bottom: var(--border);
+      grid-column: 1 / -1;
     }
 
     .hero-left {}
@@ -112,10 +148,11 @@
       line-height: 0.9;
       letter-spacing: -0.04em;
       text-transform: uppercase;
+      color: var(--white);
     }
 
     .hero h1 .stroke {
-      -webkit-text-stroke: 3px var(--black);
+      -webkit-text-stroke: 3px var(--white);
       color: transparent;
     }
 
@@ -128,9 +165,20 @@
       font-size: 0.9rem;
       font-weight: 400;
       line-height: 1.6;
-      color: #333;
-      border-left: 4px solid var(--black);
+      color: rgba(255,255,255,0.85);
+      border-left: 4px solid var(--yellow);
       padding-left: 1rem;
+    }
+
+    .hero-credit {
+      position: absolute;
+      bottom: 1rem;
+      right: 1.5rem;
+      z-index: 1;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.05em;
     }
 
 
@@ -326,16 +374,20 @@
   </header>
 
   <section class="hero">
-    <div class="hero-left">
-      <div class="hero-tag">Personal Journal</div>
-      <h1>
-        HJ's<br>
-        <span class="stroke">Musings</span>
-      </h1>
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-tag">Personal Journal</div>
+        <h1>
+          HJ's<br>
+          <span class="stroke">Musings</span>
+        </h1>
+      </div>
+      <div class="hero-right">
+        <p>Thoughts on AGI, LLM, World Model, Agents, and all the building blocks that matter.</p>
+      </div>
     </div>
-    <div class="hero-right">
-      <p>Thoughts on AGI, LLM, World Model, Agents, and all the building blocks that matter.</p>
-    </div>
+    <div class="hero-credit">Impression Sunrise — Claude Monet, 1872</div>
   </section>
 
 
