@@ -4,179 +4,303 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Building My First AI Agent Workflow – HJ Hang Blog</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600&family=Space+Mono&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0f0f11;
-      --surface: #1a1a1f;
-      --border: #2a2a32;
-      --accent: #7c6aff;
-      --accent-light: #a594ff;
-      --text: #e8e8f0;
-      --muted: #888899;
-      --tag-bg: #252530;
+      --bg: #06060a;
+      --text: #f0ece4;
+      --muted: #7a7a8a;
+      --accent1: #ff6b6b;
+      --accent2: #ffd93d;
+      --accent3: #6bcbff;
+      --accent4: #c77dff;
+      --border: rgba(255,255,255,0.07);
     }
+
+    html { scroll-behavior: smooth; }
 
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: 'Inter', sans-serif;
       line-height: 1.7;
       min-height: 100vh;
+      overflow-x: hidden;
     }
 
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.4;
+    }
+
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.10;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .orb-1 { width: 500px; height: 500px; background: var(--accent3); top: -100px; right: -100px; }
+    .orb-2 { width: 350px; height: 350px; background: var(--accent1); bottom: 0; left: -80px; }
+
     header {
-      border-bottom: 1px solid var(--border);
-      padding: 0 2rem;
-      position: sticky;
-      top: 0;
-      background: rgba(15, 15, 17, 0.85);
-      backdrop-filter: blur(12px);
-      z-index: 100;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 500;
+      padding: 0 2.5rem;
     }
 
     .header-inner {
-      max-width: 780px;
+      max-width: 1100px;
       margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 60px;
+      height: 70px;
+      border-bottom: 1px solid var(--border);
     }
 
     .logo {
-      font-size: 1.1rem;
-      font-weight: 700;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.85rem;
       color: var(--text);
       text-decoration: none;
-      letter-spacing: -0.02em;
+      letter-spacing: 0.05em;
     }
 
-    .logo span { color: var(--accent); }
+    .logo em { color: var(--accent1); font-style: normal; }
+
+    nav { display: flex; align-items: center; gap: 2rem; }
 
     nav a {
       color: var(--muted);
       text-decoration: none;
-      font-size: 0.9rem;
-      margin-left: 1.5rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 500;
       transition: color 0.2s;
     }
 
     nav a:hover { color: var(--text); }
 
-    article {
-      max-width: 780px;
+    /* Article layout */
+    .article-wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
       margin: 0 auto;
-      padding: 4rem 2rem 6rem;
+      padding: 120px 2.5rem 8rem;
     }
 
     .back-link {
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 0.5rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       color: var(--muted);
       text-decoration: none;
-      font-size: 0.85rem;
-      margin-bottom: 2.5rem;
-      transition: color 0.2s;
+      margin-bottom: 4rem;
+      transition: color 0.2s, gap 0.2s;
     }
 
-    .back-link:hover { color: var(--text); }
+    .back-link:hover { color: var(--text); gap: 0.8rem; }
 
     .post-meta {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
-      font-size: 0.8rem;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .post-date {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
       color: var(--muted);
-      margin-bottom: 1rem;
+      letter-spacing: 0.05em;
     }
 
     .tag {
-      background: var(--tag-bg);
-      color: var(--accent-light);
-      padding: 0.15rem 0.55rem;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      font-weight: 500;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 2px;
+      border: 1px solid rgba(107, 203, 255, 0.3);
+      color: var(--accent3);
     }
 
     h1 {
-      font-size: clamp(1.6rem, 4vw, 2.4rem);
-      font-weight: 800;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 900;
       letter-spacing: -0.03em;
-      line-height: 1.2;
-      margin-bottom: 2.5rem;
-      padding-bottom: 2rem;
+      line-height: 1.15;
+      margin-bottom: 3rem;
+      padding-bottom: 3rem;
       border-bottom: 1px solid var(--border);
     }
 
+    /* Decorative rule under title */
+    h1::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent4), var(--accent3));
+      margin-top: 2rem;
+      border-radius: 2px;
+    }
+
     .content h2 {
-      font-size: 1.25rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
       font-weight: 700;
-      letter-spacing: -0.02em;
-      margin: 2.5rem 0 0.75rem;
+      font-style: italic;
+      letter-spacing: -0.01em;
+      margin: 3rem 0 1rem;
       color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .content h2::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 2px;
+      background: var(--accent2);
+      flex-shrink: 0;
     }
 
     .content p {
-      color: #c8c8d8;
-      margin-bottom: 1.25rem;
+      color: #c0bcb4;
+      margin-bottom: 1.5rem;
       font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.85;
     }
 
     .content code {
-      background: var(--surface);
+      font-family: 'Space Mono', monospace;
+      background: rgba(255,255,255,0.05);
       border: 1px solid var(--border);
-      padding: 0.15rem 0.4rem;
-      border-radius: 4px;
-      font-size: 0.88em;
-      font-family: 'SF Mono', 'Fira Code', monospace;
-      color: var(--accent-light);
+      padding: 0.1rem 0.45rem;
+      border-radius: 3px;
+      font-size: 0.82em;
+      color: var(--accent3);
     }
 
     .content pre {
-      background: var(--surface);
+      background: rgba(255,255,255,0.03);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.25rem 1.5rem;
+      border-left: 3px solid var(--accent4);
+      border-radius: 0 8px 8px 0;
+      padding: 1.5rem 1.75rem;
       overflow-x: auto;
-      margin: 1.5rem 0;
+      margin: 2rem 0;
+      position: relative;
+    }
+
+    .content pre::before {
+      content: 'terminal';
+      display: block;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
     }
 
     .content pre code {
       background: none;
       border: none;
       padding: 0;
-      font-size: 0.88rem;
-      color: #c8c8d8;
+      font-size: 0.85rem;
+      color: #c0bcb4;
     }
 
     .content ul {
-      padding-left: 1.5rem;
-      margin-bottom: 1.25rem;
-      color: #c8c8d8;
+      padding-left: 0;
+      margin-bottom: 1.5rem;
+      list-style: none;
     }
 
-    .content ul li { margin-bottom: 0.4rem; }
+    .content ul li {
+      color: #c0bcb4;
+      margin-bottom: 0.6rem;
+      padding-left: 1.5rem;
+      font-weight: 300;
+      position: relative;
+    }
+
+    .content ul li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--accent2);
+      font-size: 0.85em;
+    }
 
     footer {
+      position: relative;
+      z-index: 1;
       border-top: 1px solid var(--border);
-      text-align: center;
-      padding: 2rem;
-      color: var(--muted);
-      font-size: 0.82rem;
+      padding: 2.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
-    footer a { color: var(--accent-light); text-decoration: none; }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    .footer-links a {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--text); }
+
+    .footer-copy {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: rgba(122,122,138,0.5);
+    }
   </style>
 </head>
 <body>
 
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
   <header>
     <div class="header-inner">
-      <a href="/" class="logo">HJ<span>.</span>Hang</a>
+      <a href="/" class="logo">HJ<em>.</em>HANG</a>
       <nav>
         <a href="/">Blog</a>
         <a href="#">Projects</a>
@@ -185,11 +309,11 @@
     </div>
   </header>
 
-  <article>
-    <a href="/" class="back-link">&#8592; Back to Blog</a>
+  <div class="article-wrap">
+    <a href="/" class="back-link">← Back to Blog</a>
 
     <div class="post-meta">
-      <span>Mar 24, 2026</span>
+      <span class="post-date">Mar 24, 2026</span>
       <span class="tag">Agents</span>
     </div>
 
@@ -248,10 +372,14 @@ git push -u origin main</code></pre>
         and deployment pipelines. Stay tuned.
       </p>
     </div>
-  </article>
+  </div>
 
   <footer>
-    &copy; 2026 HJ Hang &mdash; <a href="https://github.com/hungry1526" target="_blank">GitHub</a>
+    <div class="footer-logo">HJ Hang</div>
+    <div class="footer-links">
+      <a href="https://github.com/hungry1526" target="_blank">GitHub</a>
+    </div>
+    <div class="footer-copy">&copy; 2026</div>
   </footer>
 
 </body>
