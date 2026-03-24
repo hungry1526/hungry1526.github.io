@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About – HJ Hang Blog</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0a;
+      --white: #f5f0e8;
+      --yellow: #ffe800;
+      --red: #ff3b3b;
+      --blue: #0057ff;
+      --border: 3px solid var(--black);
+      --shadow: 6px 6px 0px var(--black);
+      --shadow-lg: 10px 10px 0px var(--black);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      color: var(--black);
+      font-family: 'Space Grotesk', sans-serif;
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--yellow);
+      border-bottom: var(--border);
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .logo {
+      font-family: 'Space Mono', monospace;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--black);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+    }
+
+    nav { display: flex; gap: 0; }
+
+    nav a {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--black);
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border: var(--border);
+      border-right: none;
+      transition: background 0.1s;
+    }
+
+    nav a:last-child { border-right: var(--border); }
+    nav a:hover { background: var(--black); color: var(--yellow); }
+    nav a.active { background: var(--black); color: var(--yellow); }
+
+    /* Page */
+    .page-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    /* Page title */
+    .page-title {
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      line-height: 0.9;
+      margin-bottom: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: var(--border);
+    }
+
+    .page-title span {
+      -webkit-text-stroke: 3px var(--black);
+      color: transparent;
+    }
+
+    /* Layout */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Bio */
+    .bio p {
+      font-size: 1.05rem;
+      font-weight: 400;
+      line-height: 1.85;
+      color: #222;
+      margin-bottom: 1.5rem;
+    }
+
+    .bio p:first-child {
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+
+    /* Sidebar cards */
+    .sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
+
+    .card {
+      border: var(--border);
+      box-shadow: var(--shadow);
+      background: var(--white);
+    }
+
+    .card-header {
+      background: var(--black);
+      color: var(--yellow);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.6rem 1rem;
+    }
+
+    .card-body { padding: 1.25rem 1rem; }
+
+    .card-body p {
+      font-size: 0.88rem;
+      color: #333;
+      line-height: 1.6;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-body p:last-child { margin-bottom: 0; }
+
+    /* Timeline / experience */
+    .timeline { margin-top: 3rem; }
+
+    .timeline-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .timeline-label::after {
+      content: '';
+      flex: 1;
+      height: 3px;
+      background: var(--black);
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 1.25rem;
+      padding: 1.25rem 0;
+      border-bottom: 2px solid var(--black);
+    }
+
+    .timeline-item:last-child { border-bottom: none; }
+
+    .timeline-year {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--red);
+      padding-top: 0.2rem;
+      text-transform: uppercase;
+    }
+
+    .timeline-role {
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.2rem;
+    }
+
+    .timeline-company {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* Links */
+    .link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--black);
+      text-decoration: none;
+      border: var(--border);
+      padding: 0.5rem 1rem;
+      box-shadow: var(--shadow);
+      margin-top: 2rem;
+      margin-right: 0.75rem;
+      transition: transform 0.1s, box-shadow 0.1s, background 0.1s;
+      display: inline-flex;
+    }
+
+    .link-btn:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: var(--shadow-lg);
+      background: var(--yellow);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--black);
+      color: var(--white);
+      border-top: var(--border);
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .footer-logo span { color: var(--yellow); }
+
+    .footer-links a {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--white);
+      text-decoration: none;
+      border-bottom: 2px solid var(--yellow);
+      padding-bottom: 1px;
+      transition: color 0.15s;
+    }
+
+    .footer-links a:hover { color: var(--yellow); }
+
+    .footer-copy {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="/" class="logo">HJ_HANG</a>
+      <nav>
+        <a href="/">Blog</a>
+        <a href="/about.html" class="active">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page-wrap">
+    <h1 class="page-title">About<br><span>Me</span></h1>
+
+    <div class="about-grid">
+      <div>
+        <div class="bio">
+          <p>
+            I'm Haojie (HJ) Hang — a product manager and engineer based in Shanghai, China, currently driving Developer Marketing at NVIDIA.
+          </p>
+          <p>
+            With nearly 14 years of experience across enterprise software, cloud infrastructure, and venture capital, I've had the privilege of working at the intersection of cutting-edge technology and real-world impact. At Microsoft, I spent close to five years as a Senior Product Manager on Azure Kubernetes Service, helping 300+ enterprise customers across retail, finance, and manufacturing deploy and scale AI and LLM workloads globally.
+          </p>
+          <p>
+            Before Microsoft, I was a Staff PM at Ant Group (Alibaba), where I worked on Kubernetes strategy and graph databases inside a 300-person engineering organization. Earlier in my career, I was an infrastructure technology investor at Matrix Partners, backing founders building the next generation of cloud-native software — several of which went on to exit to ByteDance, Alibaba, and Tencent.
+          </p>
+          <p>
+            I hold an M.S. in Computer Science from the University of Colorado Boulder, with research in NLP, machine learning, and data mining. I started my career as a Software Engineer at Microsoft, shipping features in Azure, Windows Server, and automation — and earning two US patents along the way.
+          </p>
+          <p>
+            This blog is where I write about AI agents, engineering, and the craft of building products that scale.
+          </p>
+        </div>
+
+        <a href="https://www.linkedin.com/in/haojiehang/" target="_blank" class="link-btn">LinkedIn ↗</a>
+        <a href="https://github.com/hungry1526" target="_blank" class="link-btn">GitHub ↗</a>
+
+        <div class="timeline">
+          <div class="timeline-label">Experience</div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">2025 – Now</div>
+            <div>
+              <div class="timeline-role">Product Manager, Developer Marketing</div>
+              <div class="timeline-company">NVIDIA</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">2021 – 2025</div>
+            <div>
+              <div class="timeline-role">Senior Product Manager, AKS</div>
+              <div class="timeline-company">Microsoft</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">2018 – 2021</div>
+            <div>
+              <div class="timeline-role">Staff Product Manager</div>
+              <div class="timeline-company">Ant Group</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">2016 – 2018</div>
+            <div>
+              <div class="timeline-role">Infrastructure VC</div>
+              <div class="timeline-company">Matrix Partners</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">2012 – 2016</div>
+            <div>
+              <div class="timeline-role">Software Engineer II, Azure</div>
+              <div class="timeline-company">Microsoft</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar">
+        <div class="card">
+          <div class="card-header">Currently</div>
+          <div class="card-body">
+            <p>📍 Shanghai, China</p>
+            <p>💼 Product Manager @ NVIDIA</p>
+            <p>🤖 Writing about AI agents & engineering</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">Education</div>
+          <div class="card-body">
+            <p><strong>M.S. Computer Science</strong></p>
+            <p>University of Colorado Boulder</p>
+            <p style="margin-top:0.5rem; color:#777;">Research in NLP, ML & Data Mining</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">Interests</div>
+          <div class="card-body">
+            <p>AI / LLM Infrastructure</p>
+            <p>Kubernetes & Cloud Native</p>
+            <p>Agent Workflows</p>
+            <p>Early-stage Investing</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">HJ<span>_</span>HANG</div>
+      <div class="footer-links">
+        <a href="https://github.com/hungry1526" target="_blank">GitHub ↗</a>
+      </div>
+      <div class="footer-copy">&copy; 2026</div>
+    </div>
+  </footer>
+
+</body>
+</html>
