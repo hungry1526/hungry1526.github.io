@@ -359,6 +359,40 @@
       font-size: 0.68rem;
       color: #666;
     }
+
+    @media (max-width: 640px) {
+      .header-inner { padding: 0 1rem; }
+
+      .logo { font-size: 0.9rem; }
+
+      nav a { padding: 0.5rem 0.65rem; font-size: 0.7rem; }
+
+      .hero { min-height: 100svh; }
+
+      .hero-inner {
+        grid-template-columns: 1fr;
+        padding: 6rem 1.25rem 3rem;
+        gap: 1.5rem;
+      }
+
+      .hero-right { max-width: 100%; }
+
+      .posts-section { padding: 0 1.25rem 4rem; }
+
+      .post-card {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+      }
+
+      .post-num { display: none; }
+
+      .footer-inner {
+        flex-direction: column;
+        gap: 0.75rem;
+        text-align: center;
+        padding: 1.5rem;
+      }
+    }
   </style>
 </head>
 <body>
