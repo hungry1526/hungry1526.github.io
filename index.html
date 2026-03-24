@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HJ Hang Blog</title>
+  <title>HJ Hang's Blog</title>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -133,41 +133,6 @@
       padding-left: 1rem;
     }
 
-    /* Marquee strip */
-    .marquee-wrap {
-      background: var(--black);
-      color: var(--yellow);
-      border-top: var(--border);
-      border-bottom: var(--border);
-      overflow: hidden;
-      white-space: nowrap;
-      padding: 0.6rem 0;
-    }
-
-    .marquee-track {
-      display: inline-block;
-      animation: marquee 18s linear infinite;
-    }
-
-    .marquee-track span {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 0 2rem;
-    }
-
-    .marquee-track span::after {
-      content: '★';
-      padding-left: 2rem;
-      color: var(--red);
-    }
-
-    @keyframes marquee {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
-    }
 
     /* Posts */
     .posts-section {
@@ -365,7 +330,7 @@
       <div class="hero-tag">Personal Journal</div>
       <h1>
         HJ<br>
-        <span class="stroke">Hang</span><br>
+        <span class="stroke">Hang's</span><br>
         Blog
       </h1>
     </div>
@@ -374,22 +339,6 @@
     </div>
   </section>
 
-  <div class="marquee-wrap">
-    <div class="marquee-track">
-      <span>AI Agents</span>
-      <span>Engineering</span>
-      <span>Open Source</span>
-      <span>GitHub</span>
-      <span>Apache 2.0</span>
-      <span>Dev Journal</span>
-      <span>AI Agents</span>
-      <span>Engineering</span>
-      <span>Open Source</span>
-      <span>GitHub</span>
-      <span>Apache 2.0</span>
-      <span>Dev Journal</span>
-    </div>
-  </div>
 
   <section class="posts-section">
     <div class="section-label">
