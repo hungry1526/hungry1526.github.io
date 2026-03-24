@@ -4,101 +4,84 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Building My First AI Agent Workflow – HJ Hang Blog</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600&family=Space+Mono&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #06060a;
-      --text: #f0ece4;
-      --muted: #7a7a8a;
-      --accent1: #ff6b6b;
-      --accent2: #ffd93d;
-      --accent3: #6bcbff;
-      --accent4: #c77dff;
-      --border: rgba(255,255,255,0.07);
+      --black: #0a0a0a;
+      --white: #f5f0e8;
+      --yellow: #ffe800;
+      --red: #ff3b3b;
+      --blue: #0057ff;
+      --border: 3px solid var(--black);
+      --shadow: 6px 6px 0px var(--black);
+      --shadow-lg: 10px 10px 0px var(--black);
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Inter', sans-serif;
-      line-height: 1.7;
+      background: var(--white);
+      color: var(--black);
+      font-family: 'Space Grotesk', sans-serif;
+      line-height: 1.5;
       min-height: 100vh;
-      overflow-x: hidden;
     }
 
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 1000;
-      opacity: 0.4;
-    }
-
-    .orb {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(120px);
-      opacity: 0.10;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .orb-1 { width: 500px; height: 500px; background: var(--accent3); top: -100px; right: -100px; }
-    .orb-2 { width: 350px; height: 350px; background: var(--accent1); bottom: 0; left: -80px; }
-
+    /* Header */
     header {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 500;
-      padding: 0 2.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--yellow);
+      border-bottom: var(--border);
     }
 
     .header-inner {
       max-width: 1100px;
       margin: 0 auto;
+      padding: 0 2rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 70px;
-      border-bottom: 1px solid var(--border);
+      height: 64px;
     }
 
     .logo {
       font-family: 'Space Mono', monospace;
-      font-size: 0.85rem;
-      color: var(--text);
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--black);
       text-decoration: none;
-      letter-spacing: 0.05em;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
     }
 
-    .logo em { color: var(--accent1); font-style: normal; }
-
-    nav { display: flex; align-items: center; gap: 2rem; }
+    nav { display: flex; gap: 0; }
 
     nav a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.8rem;
-      letter-spacing: 0.08em;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
       text-transform: uppercase;
-      font-weight: 500;
-      transition: color 0.2s;
+      letter-spacing: 0.05em;
+      color: var(--black);
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border: var(--border);
+      border-right: none;
+      transition: background 0.1s;
     }
 
-    nav a:hover { color: var(--text); }
+    nav a:last-child { border-right: var(--border); }
+    nav a:hover { background: var(--black); color: var(--yellow); }
 
-    /* Article layout */
+    /* Article */
     .article-wrap {
-      position: relative;
-      z-index: 1;
-      max-width: 720px;
+      max-width: 780px;
       margin: 0 auto;
-      padding: 120px 2.5rem 8rem;
+      padding: 4rem 2rem 6rem;
     }
 
     .back-link {
@@ -106,211 +89,219 @@
       align-items: center;
       gap: 0.5rem;
       font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.08em;
+      font-size: 0.72rem;
+      font-weight: 700;
       text-transform: uppercase;
-      color: var(--muted);
+      letter-spacing: 0.05em;
+      color: var(--black);
       text-decoration: none;
-      margin-bottom: 4rem;
-      transition: color 0.2s, gap 0.2s;
+      border: var(--border);
+      padding: 0.4rem 0.9rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 3rem;
+      display: inline-flex;
+      background: var(--white);
+      transition: transform 0.1s, box-shadow 0.1s;
     }
 
-    .back-link:hover { color: var(--text); gap: 0.8rem; }
+    .back-link:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: var(--shadow-lg);
+      background: var(--yellow);
+    }
 
     .post-meta {
       display: flex;
       align-items: center;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
     }
 
     .post-date {
       font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--muted);
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
       letter-spacing: 0.05em;
+      color: #555;
     }
 
     .tag {
       font-family: 'Space Mono', monospace;
       font-size: 0.65rem;
-      letter-spacing: 0.08em;
+      font-weight: 700;
       text-transform: uppercase;
-      padding: 0.2rem 0.6rem;
-      border-radius: 2px;
-      border: 1px solid rgba(107, 203, 255, 0.3);
-      color: var(--accent3);
+      letter-spacing: 0.06em;
+      padding: 0.15rem 0.5rem;
+      background: var(--red);
+      color: var(--white);
+      border: 2px solid var(--black);
     }
 
     h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      font-weight: 900;
-      letter-spacing: -0.03em;
-      line-height: 1.15;
-      margin-bottom: 3rem;
-      padding-bottom: 3rem;
-      border-bottom: 1px solid var(--border);
-    }
-
-    /* Decorative rule under title */
-    h1::after {
-      content: '';
-      display: block;
-      width: 60px;
-      height: 3px;
-      background: linear-gradient(90deg, var(--accent4), var(--accent3));
-      margin-top: 2rem;
-      border-radius: 2px;
-    }
-
-    .content h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.4rem;
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
       font-weight: 700;
-      font-style: italic;
-      letter-spacing: -0.01em;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: var(--border);
+    }
+
+    /* Content */
+    .content h2 {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
       margin: 3rem 0 1rem;
-      color: var(--text);
       display: flex;
       align-items: center;
       gap: 0.75rem;
     }
 
     .content h2::before {
-      content: '';
-      display: inline-block;
-      width: 20px;
-      height: 2px;
-      background: var(--accent2);
-      flex-shrink: 0;
+      content: '##';
+      color: var(--red);
     }
 
     .content p {
-      color: #c0bcb4;
-      margin-bottom: 1.5rem;
       font-size: 1rem;
-      font-weight: 300;
-      line-height: 1.85;
+      font-weight: 400;
+      line-height: 1.8;
+      color: #222;
+      margin-bottom: 1.5rem;
     }
 
     .content code {
       font-family: 'Space Mono', monospace;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--border);
+      background: var(--black);
+      color: var(--yellow);
       padding: 0.1rem 0.45rem;
-      border-radius: 3px;
       font-size: 0.82em;
-      color: var(--accent3);
     }
 
     .content pre {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--accent4);
-      border-radius: 0 8px 8px 0;
-      padding: 1.5rem 1.75rem;
+      background: var(--black);
+      color: var(--yellow);
+      border: var(--border);
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
       overflow-x: auto;
       margin: 2rem 0;
       position: relative;
     }
 
     .content pre::before {
-      content: 'terminal';
+      content: '> TERMINAL';
       display: block;
       font-family: 'Space Mono', monospace;
       font-size: 0.65rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--red);
       margin-bottom: 1rem;
     }
 
     .content pre code {
       background: none;
-      border: none;
+      color: var(--yellow);
       padding: 0;
       font-size: 0.85rem;
-      color: #c0bcb4;
     }
 
     .content ul {
-      padding-left: 0;
-      margin-bottom: 1.5rem;
       list-style: none;
+      padding: 0;
+      margin-bottom: 1.5rem;
+      border: var(--border);
+      box-shadow: var(--shadow);
     }
 
     .content ul li {
-      color: #c0bcb4;
-      margin-bottom: 0.6rem;
-      padding-left: 1.5rem;
-      font-weight: 300;
-      position: relative;
+      font-size: 0.95rem;
+      color: #222;
+      padding: 0.75rem 1.25rem;
+      border-bottom: 2px solid var(--black);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
     }
+
+    .content ul li:last-child { border-bottom: none; }
 
     .content ul li::before {
       content: '→';
-      position: absolute;
-      left: 0;
-      color: var(--accent2);
-      font-size: 0.85em;
+      font-family: 'Space Mono', monospace;
+      font-weight: 700;
+      color: var(--blue);
+      flex-shrink: 0;
     }
 
+    /* Footer */
     footer {
-      position: relative;
-      z-index: 1;
-      border-top: 1px solid var(--border);
-      padding: 2.5rem;
+      background: var(--black);
+      color: var(--white);
+      border-top: var(--border);
+    }
+
+    .footer-inner {
       max-width: 1100px;
       margin: 0 auto;
+      padding: 2rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
     .footer-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.2rem;
-      font-style: italic;
-      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
+
+    .footer-logo span { color: var(--yellow); }
 
     .footer-links a {
       font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--muted);
-      text-decoration: none;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
       letter-spacing: 0.05em;
-      transition: color 0.2s;
+      color: var(--white);
+      text-decoration: none;
+      border-bottom: 2px solid var(--yellow);
+      padding-bottom: 1px;
+      transition: color 0.15s;
     }
 
-    .footer-links a:hover { color: var(--text); }
+    .footer-links a:hover { color: var(--yellow); }
 
     .footer-copy {
       font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      color: rgba(122,122,138,0.5);
+      font-size: 0.68rem;
+      color: #666;
     }
   </style>
 </head>
 <body>
 
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-
   <header>
     <div class="header-inner">
-      <a href="/" class="logo">HJ<em>.</em>HANG</a>
+      <a href="/" class="logo">HJ_HANG</a>
       <nav>
         <a href="/">Blog</a>
-        <a href="#">Projects</a>
         <a href="#">About</a>
       </nav>
     </div>
   </header>
 
   <div class="article-wrap">
-    <a href="/" class="back-link">← Back to Blog</a>
+    <a href="/" class="back-link">← Back</a>
 
     <div class="post-meta">
       <span class="post-date">Mar 24, 2026</span>
@@ -375,11 +366,13 @@ git push -u origin main</code></pre>
   </div>
 
   <footer>
-    <div class="footer-logo">HJ Hang</div>
-    <div class="footer-links">
-      <a href="https://github.com/hungry1526" target="_blank">GitHub</a>
+    <div class="footer-inner">
+      <div class="footer-logo">HJ<span>_</span>HANG</div>
+      <div class="footer-links">
+        <a href="https://github.com/hungry1526" target="_blank">GitHub ↗</a>
+      </div>
+      <div class="footer-copy">&copy; 2026</div>
     </div>
-    <div class="footer-copy">&copy; 2026</div>
   </footer>
 
 </body>
