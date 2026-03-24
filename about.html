@@ -142,6 +142,24 @@
     /* Sidebar cards */
     .sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
 
+    .img-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+      border-bottom: var(--border);
+    }
+
+    .img-caption {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #555;
+      padding: 0.6rem 1rem;
+    }
+
     .card {
       border: var(--border);
       box-shadow: var(--shadow);
@@ -336,6 +354,14 @@
       </div>
 
       <div class="sidebar">
+        <div class="card img-card">
+          <img
+            src="https://www.arthistoryproject.com/site/assets/files/9237/claude-monet-impression-sunrise-1872-obelisk-art-history.jpg"
+            alt="Impression Sunrise by Claude Monet, 1872"
+          />
+          <div class="img-caption">Impression Sunrise — Claude Monet, 1872</div>
+        </div>
+
         <div class="card">
           <div class="card-header">Currently</div>
           <div class="card-body">
