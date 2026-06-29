@@ -3,329 +3,128 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Building My First AI Agent Workflow – HJ Hang Blog</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <title>Building My First AI Agent Workflow — HJ Hang</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --black: #0a0a0a;
-      --white: #f5f0e8;
-      --yellow: #ffe800;
-      --red: #ff3b3b;
-      --blue: #0057ff;
-      --border: 3px solid var(--black);
-      --shadow: 6px 6px 0px var(--black);
-      --shadow-lg: 10px 10px 0px var(--black);
+      --bg: #fdfdfc;
+      --text: #1b1b1b;
+      --muted: #5b5b5b;
+      --faint: #8a8a8a;
+      --rule: #e4e2dc;
+      --accent: #7b1e1e;
+      --link: #2a5db0;
+      --code-bg: #f5f3ed;
+      --serif: 'Lora', Georgia, 'Times New Roman', serif;
+      --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
     }
 
     html { scroll-behavior: smooth; }
-
     body {
-      background: var(--white);
-      color: var(--black);
-      font-family: 'Space Grotesk', sans-serif;
-      line-height: 1.5;
-      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--serif);
+      line-height: 1.75;
+      font-size: 18px;
+      -webkit-font-smoothing: antialiased;
     }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
 
-    /* Header */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: var(--yellow);
-      border-bottom: var(--border);
+    header { border-bottom: 1px solid var(--rule); background: var(--bg); }
+    .nav-inner {
+      max-width: 820px; margin: 0 auto; padding: 1.1rem 1.5rem;
+      display: flex; align-items: baseline; justify-content: space-between;
+      flex-wrap: wrap; gap: 0.5rem;
     }
+    .nav-name { font-family: var(--serif); font-weight: 600; font-size: 1.05rem; color: var(--text); }
+    .nav-name:hover { text-decoration: none; }
+    nav { font-family: var(--sans); font-size: 0.86rem; display: flex; gap: 1.4rem; }
+    nav a { color: var(--muted); }
+    nav a:hover { color: var(--accent); text-decoration: none; }
 
-    .header-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 64px;
-    }
-
-    .logo {
-      font-family: 'Space Mono', monospace;
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: var(--black);
-      text-decoration: none;
-      letter-spacing: -0.02em;
-      text-transform: uppercase;
-    }
-
-    nav { display: flex; gap: 0; }
-
-    nav a {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--black);
-      text-decoration: none;
-      padding: 0.5rem 1rem;
-      border: var(--border);
-      border-right: none;
-      transition: background 0.1s;
-    }
-
-    nav a:last-child { border-right: var(--border); }
-    nav a:hover { background: var(--black); color: var(--yellow); }
-
-    /* Article */
-    .article-wrap {
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 4rem 2rem 6rem;
-    }
+    .article { max-width: 720px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
 
     .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--black);
-      text-decoration: none;
-      border: var(--border);
-      padding: 0.4rem 0.9rem;
-      box-shadow: var(--shadow);
-      margin-bottom: 3rem;
-      display: inline-flex;
-      background: var(--white);
-      transition: transform 0.1s, box-shadow 0.1s;
+      font-family: var(--sans); font-size: 0.82rem; color: var(--muted);
+      display: inline-block; margin-bottom: 2.5rem;
+    }
+    .back-link:hover { color: var(--accent); text-decoration: none; }
+
+    .meta {
+      font-family: var(--sans); font-size: 0.82rem; color: var(--faint);
+      display: flex; gap: 0.9rem; align-items: center; margin-bottom: 1rem;
+    }
+    .meta .tag {
+      color: var(--accent); border: 1px solid var(--rule);
+      padding: 0.1rem 0.6rem; border-radius: 2rem;
     }
 
-    .back-link:hover {
-      transform: translate(-3px, -3px);
-      box-shadow: var(--shadow-lg);
-      background: var(--yellow);
+    .article h1 {
+      font-family: var(--serif); font-size: 2.1rem; font-weight: 600;
+      line-height: 1.2; letter-spacing: -0.01em; margin-bottom: 2rem;
+      padding-bottom: 1.5rem; border-bottom: 1px solid var(--rule);
     }
 
-    .post-meta {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 1.25rem;
-    }
-
-    .post-date {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.68rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: #555;
-    }
-
-    .tag {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      padding: 0.15rem 0.5rem;
-      background: var(--red);
-      color: var(--white);
-      border: 2px solid var(--black);
-    }
-
-    h1 {
-      font-size: clamp(1.8rem, 5vw, 2.8rem);
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      line-height: 1.1;
-      text-transform: uppercase;
-      margin-bottom: 2rem;
-      padding-bottom: 2rem;
-      border-bottom: var(--border);
-    }
-
-    /* Content */
     .content h2 {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin: 3rem 0 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
+      font-family: var(--serif); font-size: 1.35rem; font-weight: 600;
+      margin: 2.5rem 0 0.9rem; letter-spacing: -0.01em;
     }
-
-    .content h2::before {
-      content: '##';
-      color: var(--red);
-    }
-
-    .content p {
-      font-size: 1rem;
-      font-weight: 400;
-      line-height: 1.8;
-      color: #222;
-      margin-bottom: 1.5rem;
-    }
+    .content p { margin-bottom: 1.3rem; color: #262626; }
 
     .content code {
-      font-family: 'Space Mono', monospace;
-      background: var(--black);
-      color: var(--yellow);
-      padding: 0.1rem 0.45rem;
-      font-size: 0.82em;
+      font-family: var(--mono); background: var(--code-bg);
+      color: #9b2c2c; padding: 0.1rem 0.4rem; border-radius: 3px;
+      font-size: 0.85em;
     }
-
     .content pre {
-      background: var(--black);
-      color: var(--yellow);
-      border: var(--border);
-      box-shadow: var(--shadow);
-      padding: 1.5rem;
-      overflow-x: auto;
-      margin: 2rem 0;
-      position: relative;
+      background: #1c1c1c; color: #e8e6e0; border-radius: 6px;
+      padding: 1.3rem 1.4rem; overflow-x: auto; margin: 1.8rem 0;
+      font-size: 0.86rem; line-height: 1.6;
     }
-
-    .content pre::before {
-      content: '> TERMINAL';
-      display: block;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      color: var(--red);
-      margin-bottom: 1rem;
-    }
-
     .content pre code {
-      background: none;
-      color: var(--yellow);
-      padding: 0;
-      font-size: 0.85rem;
+      font-family: var(--mono); background: none; color: #e8e6e0; padding: 0;
     }
 
-    .content ul {
-      list-style: none;
-      padding: 0;
-      margin-bottom: 1.5rem;
-      border: var(--border);
-      box-shadow: var(--shadow);
-    }
+    .content ul { margin: 0 0 1.3rem 1.3rem; }
+    .content ul li { margin-bottom: 0.5rem; color: #262626; padding-left: 0.3rem; }
 
-    .content ul li {
-      font-size: 0.95rem;
-      color: #222;
-      padding: 0.75rem 1.25rem;
-      border-bottom: 2px solid var(--black);
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .content ul li:last-child { border-bottom: none; }
-
-    .content ul li::before {
-      content: '→';
-      font-family: 'Space Mono', monospace;
-      font-weight: 700;
-      color: var(--blue);
-      flex-shrink: 0;
-    }
-
-    /* Footer */
-    footer {
-      background: var(--black);
-      color: var(--white);
-      border-top: var(--border);
-    }
-
+    footer { border-top: 1px solid var(--rule); }
     .footer-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      max-width: 820px; margin: 0 auto; padding: 2rem 1.5rem 3rem;
+      font-family: var(--sans); font-size: 0.8rem; color: var(--faint);
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;
     }
 
-    .footer-logo {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.9rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .footer-logo span { color: var(--yellow); }
-
-    .footer-links a {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--white);
-      text-decoration: none;
-      border-bottom: 2px solid var(--yellow);
-      padding-bottom: 1px;
-      transition: color 0.15s;
-    }
-
-    .footer-links a:hover { color: var(--yellow); }
-
-    .footer-copy {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.68rem;
-      color: #666;
-    }
-
-    @media (max-width: 640px) {
-      .header-inner { padding: 0 1rem; }
-
-      .logo { font-size: 0.9rem; }
-
-      nav a { padding: 0.5rem 0.65rem; font-size: 0.7rem; }
-
-      .article-wrap { padding: 2.5rem 1.25rem 4rem; }
-
-      .content pre { padding: 1rem; }
-
-      .content pre code { font-size: 0.75rem; }
-
-      .footer-inner {
-        flex-direction: column;
-        gap: 0.75rem;
-        text-align: center;
-        padding: 1.5rem;
-      }
+    @media (max-width: 600px) {
+      .article { padding: 2rem 1.25rem 3.5rem; }
+      .article h1 { font-size: 1.7rem; }
     }
   </style>
 </head>
 <body>
 
   <header>
-    <div class="header-inner">
-      <a href="/" class="logo">HJ_HANG</a>
+    <div class="nav-inner">
+      <a href="/" class="nav-name">HJ Hang</a>
       <nav>
-        <a href="/">Blog</a>
+        <a href="/">Home</a>
+        <a href="/#writing">Writing</a>
         <a href="/about.html">About</a>
       </nav>
     </div>
   </header>
 
-  <div class="article-wrap">
-    <a href="/" class="back-link">← Back</a>
+  <article class="article">
+    <a href="/" class="back-link">&larr; Back to home</a>
 
-    <div class="post-meta">
-      <span class="post-date">Mar 24, 2026</span>
+    <div class="meta">
+      <span>March 24, 2026</span>
       <span class="tag">Agents</span>
     </div>
 
@@ -359,12 +158,12 @@
 
       <h2>A Real Example</h2>
       <p>
-        Here's a taste of what the agent ran to create this very blog:
+        Here's a taste of what the agent ran to create this very site:
       </p>
       <pre><code>gh repo create hungry1526.github.io --public
 git clone https://github.com/hungry1526/hungry1526.github.io.git
 # ... write index.html ...
-git add . && git commit -m "Initial blog site: HJ Hang Blog"
+git add . &amp;&amp; git commit -m "Initial site"
 git push -u origin main</code></pre>
 
       <h2>What I Learned</h2>
@@ -384,15 +183,12 @@ git push -u origin main</code></pre>
         and deployment pipelines. Stay tuned.
       </p>
     </div>
-  </div>
+  </article>
 
   <footer>
     <div class="footer-inner">
-      <div class="footer-logo">HJ<span>_</span>HANG</div>
-      <div class="footer-links">
-        <a href="https://github.com/hungry1526" target="_blank">GitHub ↗</a>
-      </div>
-      <div class="footer-copy">&copy; 2026</div>
+      <span>&copy; 2026 HJ Hang</span>
+      <span>Shanghai, China · <a href="mailto:haojie.hang@gmail.com">haojie.hang@gmail.com</a></span>
     </div>
   </footer>
 

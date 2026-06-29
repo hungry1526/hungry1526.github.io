@@ -3,414 +3,213 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About – HJ Hang Blog</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <title>About — HJ Hang</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --black: #0a0a0a;
-      --white: #f5f0e8;
-      --yellow: #ffe800;
-      --red: #ff3b3b;
-      --blue: #0057ff;
-      --border: 3px solid var(--black);
-      --shadow: 6px 6px 0px var(--black);
-      --shadow-lg: 10px 10px 0px var(--black);
+      --bg: #fdfdfc;
+      --text: #1b1b1b;
+      --muted: #5b5b5b;
+      --faint: #8a8a8a;
+      --rule: #e4e2dc;
+      --accent: #7b1e1e;
+      --link: #2a5db0;
+      --serif: 'Lora', Georgia, 'Times New Roman', serif;
+      --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     }
 
     html { scroll-behavior: smooth; }
-
     body {
-      background: var(--white);
-      color: var(--black);
-      font-family: 'Space Grotesk', sans-serif;
-      line-height: 1.5;
-      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--serif);
+      line-height: 1.7;
+      font-size: 17px;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .wrap { max-width: 820px; margin: 0 auto; padding: 0 1.5rem; }
+
+    header { border-bottom: 1px solid var(--rule); background: var(--bg); }
+    .nav-inner {
+      max-width: 820px; margin: 0 auto; padding: 1.1rem 1.5rem;
+      display: flex; align-items: baseline; justify-content: space-between;
+      flex-wrap: wrap; gap: 0.5rem;
+    }
+    .nav-name { font-family: var(--serif); font-weight: 600; font-size: 1.05rem; color: var(--text); }
+    .nav-name:hover { text-decoration: none; }
+    nav { font-family: var(--sans); font-size: 0.86rem; display: flex; gap: 1.4rem; }
+    nav a { color: var(--muted); }
+    nav a:hover { color: var(--accent); text-decoration: none; }
+    nav a.active { color: var(--accent); font-weight: 500; }
+
+    .page-head { padding: 3rem 0 1.5rem; }
+    .page-head h1 {
+      font-family: var(--serif); font-size: 2rem; font-weight: 600;
+      letter-spacing: -0.01em; margin-bottom: 0.3rem;
+    }
+    .page-head .sub { font-family: var(--sans); font-size: 0.92rem; color: var(--muted); }
+
+    section { padding: 1.8rem 0; border-top: 1px solid var(--rule); }
+    .section-title {
+      font-family: var(--sans); font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent);
+      margin-bottom: 1.1rem;
+    }
+    section p { margin-bottom: 1.1rem; color: #2a2a2a; }
+    section p:last-child { margin-bottom: 0; }
+
+    /* Timeline / CV entries */
+    .entry {
+      display: grid; grid-template-columns: 130px 1fr; gap: 1.2rem;
+      padding: 0.9rem 0; border-bottom: 1px solid var(--rule);
+    }
+    .entry:last-child { border-bottom: none; }
+    .entry .when {
+      font-family: var(--sans); font-size: 0.82rem; color: var(--faint); padding-top: 0.15rem;
+    }
+    .entry .what .title { font-weight: 600; }
+    .entry .what .org { font-family: var(--sans); font-size: 0.86rem; color: var(--muted); }
+    .entry .what .detail { font-size: 0.95rem; color: #3a3a3a; margin-top: 0.25rem; }
+
+    .portfolio { font-size: 0.97rem; }
+
+    .links-row {
+      font-family: var(--sans); font-size: 0.86rem;
+      display: flex; flex-wrap: wrap; gap: 0.6rem 1.2rem; margin-top: 0.5rem;
     }
 
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: var(--yellow);
-      border-bottom: var(--border);
-    }
-
-    .header-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 64px;
-    }
-
-    .logo {
-      font-family: 'Space Mono', monospace;
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: var(--black);
-      text-decoration: none;
-      letter-spacing: -0.02em;
-      text-transform: uppercase;
-    }
-
-    nav { display: flex; gap: 0; }
-
-    nav a {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--black);
-      text-decoration: none;
-      padding: 0.5rem 1rem;
-      border: var(--border);
-      border-right: none;
-      transition: background 0.1s;
-    }
-
-    nav a:last-child { border-right: var(--border); }
-    nav a:hover { background: var(--black); color: var(--yellow); }
-    nav a.active { background: var(--black); color: var(--yellow); }
-
-    /* Page */
-    .page-wrap {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 4rem 2rem 6rem;
-    }
-
-    /* Page title */
-    .page-title {
-      font-size: clamp(3rem, 8vw, 6rem);
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      text-transform: uppercase;
-      line-height: 0.9;
-      margin-bottom: 3rem;
-      padding-bottom: 3rem;
-      border-bottom: var(--border);
-    }
-
-    .page-title span {
-      -webkit-text-stroke: 3px var(--black);
-      color: transparent;
-    }
-
-    /* Layout */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 340px;
-      gap: 3rem;
-      align-items: start;
-    }
-
-    @media (max-width: 768px) {
-      .about-grid { grid-template-columns: 1fr; }
-    }
-
-    @media (max-width: 640px) {
-      .header-inner { padding: 0 1rem; }
-
-      .logo { font-size: 0.9rem; }
-
-      nav a { padding: 0.5rem 0.65rem; font-size: 0.7rem; }
-
-      .page-wrap { padding: 2.5rem 1.25rem 4rem; }
-
-      .page-title { font-size: clamp(2.5rem, 14vw, 4rem); }
-
-      .link-btn { margin-top: 1.5rem; }
-
-      .footer-inner {
-        flex-direction: column;
-        gap: 0.75rem;
-        text-align: center;
-        padding: 1.5rem;
-      }
-    }
-
-    /* Bio */
-    .bio a {
-      color: var(--black);
-      font-weight: 700;
-      text-decoration: none;
-      border-bottom: 2px solid var(--blue);
-      transition: background 0.1s;
-    }
-
-    .bio a:hover {
-      background: var(--yellow);
-    }
-
-    .bio p {
-      font-size: 1.05rem;
-      font-weight: 400;
-      line-height: 1.85;
-      color: #222;
-      margin-bottom: 1.5rem;
-    }
-
-
-    /* Sidebar cards */
-    .sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
-
-    .img-card img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      display: block;
-      border-bottom: var(--border);
-    }
-
-    .img-caption {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #555;
-      padding: 0.6rem 1rem;
-    }
-
-    .card {
-      border: var(--border);
-      box-shadow: var(--shadow);
-      background: var(--white);
-    }
-
-    .card-header {
-      background: var(--black);
-      color: var(--yellow);
-      font-family: 'Space Mono', monospace;
-      font-size: 0.68rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      padding: 0.6rem 1rem;
-    }
-
-    .card-body { padding: 1.25rem 1rem; }
-
-    .card-body p {
-      font-size: 0.88rem;
-      color: #333;
-      line-height: 1.6;
-      margin-bottom: 0.5rem;
-    }
-
-    .card-body p:last-child { margin-bottom: 0; }
-
-    /* Timeline / experience */
-    .timeline { margin-top: 3rem; }
-
-    .timeline-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .timeline-label::after {
-      content: '';
-      flex: 1;
-      height: 3px;
-      background: var(--black);
-    }
-
-    .timeline-item {
-      display: grid;
-      grid-template-columns: 120px 1fr;
-      gap: 1.25rem;
-      padding: 1.25rem 0;
-      border-bottom: 2px solid var(--black);
-    }
-
-    .timeline-item:last-child { border-bottom: none; }
-
-    .timeline-year {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: var(--red);
-      padding-top: 0.2rem;
-      text-transform: uppercase;
-    }
-
-    .timeline-role {
-      font-weight: 700;
-      font-size: 0.95rem;
-      letter-spacing: -0.01em;
-      margin-bottom: 0.2rem;
-    }
-
-    .timeline-company {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.72rem;
-      color: #555;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    /* Links */
-    .link-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--black);
-      text-decoration: none;
-      border: var(--border);
-      padding: 0.5rem 1rem;
-      box-shadow: var(--shadow);
-      margin-top: 2rem;
-      margin-right: 0.75rem;
-      transition: transform 0.1s, box-shadow 0.1s, background 0.1s;
-      display: inline-flex;
-    }
-
-    .link-btn:hover {
-      transform: translate(-3px, -3px);
-      box-shadow: var(--shadow-lg);
-      background: var(--yellow);
-    }
-
-    /* Footer */
-    footer {
-      background: var(--black);
-      color: var(--white);
-      border-top: var(--border);
-    }
-
+    footer { border-top: 1px solid var(--rule); margin-top: 1rem; }
     .footer-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      max-width: 820px; margin: 0 auto; padding: 2rem 1.5rem 3rem;
+      font-family: var(--sans); font-size: 0.8rem; color: var(--faint);
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;
     }
 
-    .footer-logo {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.9rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .footer-logo span { color: var(--yellow); }
-
-    .footer-links a {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--white);
-      text-decoration: none;
-      border-bottom: 2px solid var(--yellow);
-      padding-bottom: 1px;
-      transition: color 0.15s;
-    }
-
-    .footer-links a:hover { color: var(--yellow); }
-
-    .footer-copy {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.68rem;
-      color: #666;
+    @media (max-width: 600px) {
+      .entry { grid-template-columns: 1fr; gap: 0.15rem; }
+      .entry .when { padding-top: 0; }
     }
   </style>
 </head>
 <body>
 
   <header>
-    <div class="header-inner">
-      <a href="/" class="logo">HJ_HANG</a>
+    <div class="nav-inner">
+      <a href="/" class="nav-name">HJ Hang</a>
       <nav>
-        <a href="/">Blog</a>
+        <a href="/">Home</a>
+        <a href="/#writing">Writing</a>
         <a href="/about.html" class="active">About</a>
       </nav>
     </div>
   </header>
 
-  <div class="page-wrap">
-    <h1 class="page-title">About<br><span>Me</span></h1>
+  <main class="wrap">
 
-    <div class="about-grid">
-      <div>
-        <div class="bio">
-          <p>
-            Hi, I'm HJ Hang.
-          </p>
-          <p>
-            Currently, I am a product manager at NVIDIA working on projects that contribute to Artificial General Intelligence (hopefully 😊).
-          </p>
-          <p>
-            Before NVIDIA, I built products across the cloud-native and AI infrastructure stack: <a href="https://azure.microsoft.com/en-us/products/kubernetes-service" target="_blank">Azure Kubernetes Service</a>, <a href="https://github.com/kaito-project/kaito" target="_blank">KAITO</a>, <a href="https://azure.microsoft.com/en-us/products/azure-arc" target="_blank">Azure Arc</a>, <a href="https://learn.microsoft.com/en-us/azure/extended-zones/overview" target="_blank">Azure Edge Zone</a>, and <a href="https://tugraph.tech/?lang=en-US" target="_blank">Ant Group's Graph DB</a>, among others.
-          </p>
-          <p>
-            Outside of product, I spent several years in venture capital. My portfolio includes <a href="https://www.pingcap.com" target="_blank">PingCAP (TiDB)</a>, <a href="https://www.volcengine.com/product/vke" target="_blank">CaiCloud</a> (acquired by ByteDance), <a href="https://www.smartx.com" target="_blank">SmartX</a>, <a href="https://www.yunshan.net" target="_blank">Yunshan Networks</a>, <a href="https://www.chaitin.cn" target="_blank">Chaitin Tech</a> (acquired by Alibaba, later spun off), Yufu (acquired by Tencent), <a href="https://www.nebula-graph.io" target="_blank">Nebula Graph</a>, and <a href="https://www.hashdata.cn/aboutus" target="_blank">HashData</a>.
-          </p>
-        </div>
-
-        <a href="https://www.linkedin.com/in/haojiehang/" target="_blank" class="link-btn">LinkedIn ↗</a>
-        <a href="https://github.com/hungry1526" target="_blank" class="link-btn">GitHub ↗</a>
-
-      </div>
-
-      <div class="sidebar">
-        <div class="card img-card">
-          <img
-            src="https://www.arthistoryproject.com/site/assets/files/9237/claude-monet-impression-sunrise-1872-obelisk-art-history.jpg"
-            alt="Impression Sunrise by Claude Monet, 1872"
-          />
-          <div class="img-caption">Impression Sunrise — Claude Monet, 1872</div>
-        </div>
-
-        <div class="card">
-          <div class="card-header">Currently</div>
-          <div class="card-body">
-            <p>📍 Shanghai, China</p>
-            <p>💼 Product Manager @ NVIDIA</p>
-            <p>🤖 Writing about AI agents & engineering</p>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-header">Education</div>
-          <div class="card-body">
-            <p><strong>M.S. Computer Science</strong></p>
-            <p>University of Colorado Boulder</p>
-            <p style="margin-top:0.5rem; color:#777;">Research in NLP, ML & Data Mining</p>
-          </div>
-        </div>
-
-      </div>
+    <div class="page-head">
+      <h1>About</h1>
+      <div class="sub">Biography, background, and selected experience</div>
     </div>
-  </div>
+
+    <section>
+      <div class="section-title">Biography</div>
+      <p>
+        I am HJ Hang, a product manager at <strong>NVIDIA</strong>, where I work on
+        projects that contribute toward Artificial General Intelligence. My work spans large language models,
+        autonomous agents, and world models, with a particular focus on turning research advances into
+        deployable systems and infrastructure.
+      </p>
+      <p>
+        Before NVIDIA, I built products across the cloud-native and AI infrastructure stack, including
+        <a href="https://azure.microsoft.com/en-us/products/kubernetes-service" target="_blank" rel="noopener">Azure Kubernetes Service</a>,
+        <a href="https://github.com/kaito-project/kaito" target="_blank" rel="noopener">KAITO</a>,
+        <a href="https://azure.microsoft.com/en-us/products/azure-arc" target="_blank" rel="noopener">Azure Arc</a>,
+        <a href="https://learn.microsoft.com/en-us/azure/extended-zones/overview" target="_blank" rel="noopener">Azure Edge Zone</a>, and
+        <a href="https://tugraph.tech/?lang=en-US" target="_blank" rel="noopener">Ant Group's Graph Database</a>, among others.
+      </p>
+      <p>
+        Earlier in my career, I spent several years in venture capital investing in infrastructure, database,
+        and security companies.
+      </p>
+    </section>
+
+    <section>
+      <div class="section-title">Education</div>
+      <div class="entry">
+        <div class="when">M.S.</div>
+        <div class="what">
+          <div class="title">M.S. in Computer Science</div>
+          <div class="org">University of Colorado Boulder</div>
+          <div class="detail">Research in Natural Language Processing, Machine Learning, and Data Mining.</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">Experience</div>
+      <div class="entry">
+        <div class="when">Present</div>
+        <div class="what">
+          <div class="title">Product Manager</div>
+          <div class="org">NVIDIA — Shanghai, China</div>
+          <div class="detail">Large language models, agents, and world models toward AGI.</div>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="when">Prior</div>
+        <div class="what">
+          <div class="title">Product Manager, Cloud-Native &amp; AI Infrastructure</div>
+          <div class="org">Microsoft Azure &amp; others</div>
+          <div class="detail">AKS, KAITO, Azure Arc, Azure Edge Zone, and graph database systems.</div>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="when">Prior</div>
+        <div class="what">
+          <div class="title">Venture Capital — Infrastructure &amp; Data</div>
+          <div class="org">Investor</div>
+          <div class="detail">Backed early-stage infrastructure, database, and security companies.</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">Selected Investments</div>
+      <p class="portfolio">
+        <a href="https://www.pingcap.com" target="_blank" rel="noopener">PingCAP (TiDB)</a>,
+        <a href="https://www.volcengine.com/product/vke" target="_blank" rel="noopener">CaiCloud</a> (acquired by ByteDance),
+        <a href="https://www.smartx.com" target="_blank" rel="noopener">SmartX</a>,
+        <a href="https://www.yunshan.net" target="_blank" rel="noopener">Yunshan Networks</a>,
+        <a href="https://www.chaitin.cn" target="_blank" rel="noopener">Chaitin Tech</a> (acquired by Alibaba, later spun off),
+        Yufu (acquired by Tencent),
+        <a href="https://www.nebula-graph.io" target="_blank" rel="noopener">Nebula Graph</a>, and
+        <a href="https://www.hashdata.cn/aboutus" target="_blank" rel="noopener">HashData</a>.
+      </p>
+    </section>
+
+    <section>
+      <div class="section-title">Contact</div>
+      <p>Shanghai, China &middot; <a href="mailto:haojie.hang@gmail.com">haojie.hang@gmail.com</a></p>
+      <div class="links-row">
+        <a href="https://scholar.google.com/" target="_blank" rel="noopener">Google Scholar</a>
+        <a href="https://github.com/hungry1526" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/haojiehang/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </section>
+
+  </main>
 
   <footer>
     <div class="footer-inner">
-      <div class="footer-logo">HJ<span>_</span>HANG</div>
-      <div class="footer-links">
-        <a href="https://github.com/hungry1526" target="_blank">GitHub ↗</a>
-      </div>
-      <div class="footer-copy">&copy; 2026</div>
+      <span>&copy; 2026 HJ Hang</span>
+      <span>Shanghai, China · <a href="mailto:haojie.hang@gmail.com">haojie.hang@gmail.com</a></span>
     </div>
   </footer>
 
